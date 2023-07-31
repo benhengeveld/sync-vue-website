@@ -1,0 +1,23 @@
+<template>
+  <div class="card">
+    <slot></slot>
+  </div>
+</template>
+
+<style lang="scss">
+.card {
+  background-color: #424242;
+  color: white;
+  border-radius: 4px;
+  padding: 16px 16px 32px 16px;
+  margin-bottom: 1em;
+
+  .card-title {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.6em;
+  }
+}
+</style>

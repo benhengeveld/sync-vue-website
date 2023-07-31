@@ -1,0 +1,17 @@
+<template>
+  <div id="crt-overlay" class="crt-top"></div>
+</template>
+
+<style lang="scss">
+@import "../assets/styles/crt.scss";
+
+#crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+</style>
