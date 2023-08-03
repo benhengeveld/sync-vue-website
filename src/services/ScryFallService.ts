@@ -10,15 +10,15 @@ export default class ScryFallService {
     )}`;
 
     return from(fetch(requestUrl)).pipe(
-      switchMap((response) => {
+      switchMap((response: Response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok: " + response.status);
+        }
+
         return response.json();
       }),
-      map((data) => {
-        return JSON.stringify(data);
-      }),
-      map((data) => {
-        const card: ScryfallCardData = JSON.parse(data);
-        return card;
+      map((data: ScryfallCardData) => {
+        return data;
       })
     );
   }

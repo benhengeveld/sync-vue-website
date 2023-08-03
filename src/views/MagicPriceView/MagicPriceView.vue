@@ -4,6 +4,7 @@
       <v-form @submit.prevent="search" id="search-form">
         <v-text-field
           id="search-field"
+          autocomplete="off"
           :loading="loading"
           density="compact"
           variant="solo"
@@ -27,6 +28,8 @@
           <h1 v-if="cardEtchedPrice">Etched: ${{ cardEtchedPrice }}</h1>
         </div>
       </div>
+
+      <SnackbarItem timeout="3000" color="error" ref="snackbar" />
     </CardItem>
   </DefaultPageTemplate>
 </template>
@@ -34,6 +37,7 @@
 <script setup lang="ts">
 import DefaultPageTemplate from "@/templates/DefaultPageTemplate.vue";
 import CardItem from "@/components/CardItem.vue";
+import SnackbarItem from "@/components/SnackbarItem.vue";
 import ScryFallService from "@/services/ScryFallService";
 import PricingService from "@/services/PricingService";
 import { ScryfallCardData } from "@/models/ScryfallCardData";
@@ -44,6 +48,8 @@ const pricingService = new PricingService();
 
 const loading = ref(false);
 const searchField = ref("");
+
+const snackbar = ref<InstanceType<typeof SnackbarItem> | null>(null);
 
 const cardImage = ref(undefined as string | undefined);
 const cardSetName = ref(undefined as string | undefined);
@@ -57,6 +63,16 @@ function search(): void {
 
   let setCode = searchStr.substring(0, 3);
   let cardNumber = searchStr.substring(3, searchStr.length);
+
+  if (setCode.length !== 3) {
+    console.error("Invalid set code");
+    snackbar.value?.open("Error: Invalid set code");
+    return;
+  } else if (!cardNumber || Number.isNaN(Number(cardNumber))) {
+    console.error("Invalid card number");
+    snackbar.value?.open("Error: Invalid card number");
+    return;
+  }
 
   getCard(setCode, cardNumber);
 }
@@ -83,6 +99,7 @@ function getCard(setCode: string, cardNumber: string): void {
     },
     error: (error) => {
       console.error(error);
+      snackbar.value?.open("Error: Failed to get card info");
       loading.value = false;
     },
   });
