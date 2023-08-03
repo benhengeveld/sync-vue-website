@@ -39,12 +39,12 @@ import DefaultPageTemplate from "@/templates/DefaultPageTemplate.vue";
 import CardItem from "@/components/CardItem.vue";
 import SnackbarItem from "@/components/SnackbarItem.vue";
 import ScryFallService from "@/services/ScryFallService";
-import PricingService from "@/services/PricingService";
+import PricingUtil from "@/utils/PricingUtil";
 import { ScryfallCardData } from "@/models/ScryfallCardData";
 import { ref } from "vue";
 
 const scryFallService = new ScryFallService();
-const pricingService = new PricingService();
+const pricingUtil = new PricingUtil();
 
 const loading = ref(false);
 const searchField = ref("");
@@ -57,7 +57,7 @@ const cardNormalPrice = ref(undefined as string | undefined);
 const cardFoilPrice = ref(undefined as string | undefined);
 const cardEtchedPrice = ref(undefined as string | undefined);
 
-function search(): void {
+const search = (): void => {
   let searchStr = searchField.value;
   searchStr = searchStr.replace(" ", "");
 
@@ -75,9 +75,9 @@ function search(): void {
   }
 
   getCard(setCode, cardNumber);
-}
+};
 
-function getCard(setCode: string, cardNumber: string): void {
+const getCard = (setCode: string, cardNumber: string): void => {
   loading.value = true;
 
   cardImage.value = undefined;
@@ -103,23 +103,23 @@ function getCard(setCode: string, cardNumber: string): void {
       loading.value = false;
     },
   });
-}
+};
 
-function getCadPrice(price: string | undefined | null): string {
+const getCadPrice = (price: string | undefined | null): string => {
   if (price == undefined || price == null) {
     return "";
   }
 
   let priceNum = Number(price);
   if (!isNaN(priceNum)) {
-    let cadPrice = pricingService.usdToCad(priceNum);
+    let cadPrice = pricingUtil.usdToCad(priceNum);
     return `${cadPrice.toFixed(2)} CAD`;
   } else {
     return "";
   }
-}
+};
 
-function getCardsImage(card: ScryfallCardData | undefined): string {
+const getCardsImage = (card: ScryfallCardData | undefined): string => {
   if (card == undefined) {
     return "";
   }
@@ -136,7 +136,7 @@ function getCardsImage(card: ScryfallCardData | undefined): string {
     return card.card_faces[0].image_uris.png;
   }
   return "";
-}
+};
 </script>
 
 <style lang="scss">

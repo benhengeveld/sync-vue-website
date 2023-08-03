@@ -21,13 +21,13 @@ defineProps({
   },
 });
 
-function getSvgUrl(src: string): string {
+const getSvgUrl = (src: string): string => {
   try {
     return require("@/assets/svgs/" + src + ".svg");
   } catch {
     return "";
   }
-}
+};
 </script>
 
 <style lang="scss">

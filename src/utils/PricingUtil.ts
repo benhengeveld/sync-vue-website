@@ -1,4 +1,4 @@
-export default class PricingService {
+export default class PricingUtil {
   usdToCadConversion = 1.31;
 
   usdToCad(usdPrice: number): number {
