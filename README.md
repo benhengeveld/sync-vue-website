@@ -1,4 +1,4 @@
-# testing
+# sync-vue-website
 
 ## Project setup
 ```
