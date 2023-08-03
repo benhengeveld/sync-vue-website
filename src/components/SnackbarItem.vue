@@ -1,5 +1,11 @@
 <template>
-  <v-snackbar :timeout="timeout" :color="color" elevation="24" v-model="isOpen">
+  <v-snackbar
+    :timeout="timeout"
+    :color="color"
+    location="bottom left"
+    elevation="24"
+    v-model="isOpen"
+  >
     {{ message }}
     <template v-slot:actions>
       <v-btn
