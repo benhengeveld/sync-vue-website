@@ -45,6 +45,7 @@ const icons: { name: string; fileName: string }[] = [
   { fileName: "java", name: "Java" },
   { fileName: "javascript", name: "JavaScript" },
   { fileName: "nodedotjs", name: "Node.js" },
+  { fileName: "react", name: "React" },
   { fileName: "sass", name: "Sass" },
   { fileName: "sql", name: "SQL" },
   { fileName: "typescript", name: "TypeScript" },
